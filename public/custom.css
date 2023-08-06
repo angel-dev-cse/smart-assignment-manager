@@ -1,0 +1,181 @@
+.card-hover:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+    background-color: #5e74d4 !important;
+    color: white;
+}
+
+.card-hover:hover h5 {
+    color: white;
+}
+
+[type="text"],
+input:where(:not([type])),
+[type="email"],
+[type="file"],
+[type="url"],
+[type="password"],
+[type="number"],
+[type="date"],
+[type="datetime-local"],
+[type="month"],
+[type="search"],
+[type="tel"],
+[type="time"],
+[type="week"],
+[multiple],
+textarea,
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff !important;
+    border-color: #b0b3b9 !important;
+    border-width: 1px !important;
+    border-radius: 5px !important;
+    padding-top: 0.5rem;
+    padding-right: 0.75rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    --tw-shadow: 0 0 #0000;
+}
+
+.col-centered {
+    float: none;
+    margin: 0 auto !important;
+    width: 80%;
+    background: lightblue;
+}
+
+.btn-circle {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    padding: 0;
+    border-radius: 50%;
+}
+
+.btn-circle span {
+    position: relative;
+    top: -1px;
+}
+
+.btn-label {
+    position: relative;
+    left: -25px;
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 3px 0 0 3px;
+}
+
+.btn-labeled {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.form-check-radio {
+    margin-left: 30px; /* Adjust the margin as needed */
+}
+
+.alert {
+    margin: 0 !important;
+    text-align: center;
+}
+
+.count {
+    width: 1.3rem !important;
+    height: 1.3rem !important;
+    top: -7px !important;
+}
+
+.nowrap-table td {
+    white-space: wrap !important;
+    padding: 0;
+}
+
+.nowrap-table th {
+    white-space: wrap !important;
+    padding: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.nowrap-table button {
+    margin-top: 0.5rem !important;
+}
+
+.nowrap-table form {
+    display: inline-block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    white-space: normal !important;
+}
+
+.collapse {
+    visibility: visible !important;
+}
+
+.table-height-fixed {
+    height: 45rem !important;
+    overflow-y: auto;
+}
+
+.fixed-tbody {
+    width: 100% !important;
+    height: 5rem;
+    overflow-y: scroll;
+}
+
+.table-card {
+    max-height: 30rem;
+    overflow-y: auto;
+}
+
+.table-responsive::-webkit-scrollbar {
+    display: none;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;
+}
+
+.col-pill {
+    flex: 0 1 20%;
+}
+
+.page-body-wrapper {
+    padding-top: 0 !important;
+}
+
+.welcome-text {
+    display: block !important;
+}
+
+.card.bg-primary .card-title,
+.card.bg-primary .card-header,
+.card.bg-primary .card-text {
+    color: #fff; /* Set the desired text color (white in this case) */
+}
+
+
+.card.bg-primary .card-description{
+    color: #b6c4ff;
+}
+
+.card.bg-primary .text-mute{
+    color: #b6c4ff;
+}
+
+.card-header {
+    font-size: larger;
+    font-weight: bolder;
+    border-bottom: 0px !important;
+}
+
+.btn-circle span {
+    position: relative;
+    top: -4px;
+    left: -6px;
+}
+
