@@ -5,7 +5,7 @@
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="m-0">
-                    <div class="">
+                    <div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-pill">
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card card-shadow">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-3 mb-4">

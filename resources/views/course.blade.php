@@ -6,7 +6,7 @@
                 <div class="row">
                     <!-- Left side: Course Details and Create Assignment Form -->
                     <div class="col-md-3">
-                        <div class="card bg-primary">
+                        <div class="card card-shadow bg-primary">
                             <div class="card-header">{{ $course -> course_name }}</div>
                             <div class="card-body">
                                 <p class="card-description">Course Code: {{ $course -> course_code }}</p>
@@ -20,28 +20,28 @@
                             </div>
                         </div>
                         @if(Auth::user()->hasRole('teacher'))
-                            <div class="card mt-4">
+                            <div class="card card-shadow mt-4">
                                 <div class="card-body">
                                     <h5 class="card-title">Create Assignment</h5>
                                     <form class="forms-sample" method="POST" action="{{ route('assignment.create')}}" enctype="multipart/form-data">
                                         @csrf
-                                        <div class="form-group">
+                                        <div class="form-group m-1">
                                             <label for="topic" class="form-label">Topic</label>
                                             <input type="text" class="form-control" id="topic" name="topic" required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group m-1">
                                             <label for="description" class="form-label">Description</label>
                                             <textarea class="form-control" style="height:8rem" id="description" name="description" rows="3" required></textarea>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group m-1">
                                             <label for="marks" class="form-label">Marks</label>
                                             <input type="number" class="form-control" id="marks" name="marks" required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group m-1">
                                             <label for="file" class="form-label">File</label>
                                             <input type="file" class="form-control" id="file" name="file" required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group m-1">
                                             <label for="deadline" class="form-label">Deadline</label>
                                             <input type="date" class="form-control" id="deadline" name="deadline" required>
                                         </div>
@@ -67,7 +67,7 @@
                         <div class="tab-content">
                             <!-- Assignments Tab Content -->
                             <div class="tab-pane fade show active" id="assignments">
-                                <div class="card table-card">
+                                <div class="card card-shadow table-card">
                                     <div class="card-body">
                                         <h5 class="card-title">Assignments</h5>
                                         <div class="table-responsive">
@@ -117,7 +117,7 @@
                             </div>
                             <!-- Students Tab Content -->
                             <div class="tab-pane fade" id="students">
-                                <div class="card">
+                                <div class="card card-shadow">
                                     <div class="card-body">
                                         <h5 class="card-title">Students</h5>
                                         <div class="table-responsive">

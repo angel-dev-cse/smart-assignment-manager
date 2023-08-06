@@ -4,7 +4,7 @@
         <div class="main-panel">
             <div class="content-wrapper">
                 <!-- Display assignment details in a card on top of the page -->
-                <div class="card border mb-4">
+                <div class="card card-shadow mb-4">
                     <div class="card-body">
                         <h5 class="card-title">{{ $assignment->topic }}</h5>
                         <p class="card-description">Marks: <b>{{ $assignment->marks }}</b> <br/> Due Date: <b>{{ \Carbon\Carbon::parse($assignment->deadline)->format('d F, Y') }}</b></p>
@@ -47,7 +47,7 @@
                 @if (Auth::user()->hasRole('student'))
                     @if(!$assignment->hasSubmitted(Auth::user()->student->id))
                         @if($assignment->daysRemaining() > -1)
-                            <div class="card border border-primary mt-4">
+                            <div class="card card-shadow mt-4">
                                 <div class="card-body">
                                     <h5 class="card-title">Submit Your Assignment</h5>
                                     <form class="forms-sample" action="{{ route('submission.submit') }}" method="post" enctype="multipart/form-data">
@@ -67,7 +67,7 @@
                             </div>
                         @endif
                     @else
-                        <div class="card border border-primary">
+                        <div class="card card-shadow">
                             <div class="card-body">
                                 <h5 class="card-title">Your Submisison</h5>
                                 <table class="table table-hover">
@@ -101,7 +101,7 @@
                 @if (Auth::user()->hasRole('teacher'))
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="card border border-primary mt-4">
+                            <div class="card card-shadow mt-4">
                                 <div class="card-body">
                                     <h5 class="card-title">Update Assignment</h5>
                                     <form class="forms-sample" action="{{ route('assignment.update') }}" method="post" enctype="multipart/form-data">
@@ -140,7 +140,7 @@
 
                         <!-- Show the submissions to the teacher -->
                         <div class="col-md-8">
-                            <div class="card border border-primary mt-4">
+                            <div class="card card-shadow mt-4">
                                 <div class="card-body">
                                     <h5 class="card-title">Submissions</h5>
                                     <div class="table-responsive">

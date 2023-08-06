@@ -20,7 +20,7 @@
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="courses" role="tabpanel" aria-labelledby="courses-tab">
                                     <!-- Display courses here -->
-                                    <div class="card">
+                                    <div class="card card-shadow">
                                         <div class="card-body">
                                             <h4 class="card-title">{{ __('Active Courses') }} - {{$courses->count()}}</h4>
                                             <p class="card-description">{{ Auth::user()->student->department->department_name }}</p>
@@ -50,7 +50,7 @@
                                 <div class="tab-pane fade" id="assignments" role="tabpanel" aria-labelledby="assignments-tab">
                                     <!-- Display assignments here -->
                                     <div class="tab-pane fade show active" id="assignments">
-                                        <div class="card">
+                                        <div class="card card-shadow">
                                             <div class="card-body">
                                                 <h5 class="card-title">Assignments - {{$assignments->count()}}</h5>
                                                 <div class="table-responsive">
