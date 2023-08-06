@@ -7,7 +7,24 @@
                 <div class="card card-shadow mb-4">
                     <div class="card-body">
                         <h5 class="card-title">{{ $assignment->topic }}</h5>
-                        <p class="card-description">Marks: <b>{{ $assignment->marks }}</b> <br/> Due Date: <b>{{ \Carbon\Carbon::parse($assignment->deadline)->format('d F, Y') }}</b></p>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p class="card-description">
+                                    Marks: <b>{{ $assignment->marks }}</b> 
+                                    <br/> 
+                                    Due Date: <b>{{ \Carbon\Carbon::parse($assignment->deadline)->format('d F, Y') }}</b>                           <br/>
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex justify-content-between">
+                                    <small>Submissions</small>
+                                    <small>{{$progressText}}</small>
+                                </div>
+                                <div id="progress-container" class="progress progress-lg float-right" style="width:100%">
+                                    <div id="progress-bar" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
                         <h2 class="card-text"><b>Instructions:</b> {{ $assignment->description }}</h2>
                         <div class="row mt-3 rounded">
                             <!-- Display the attached file if available -->
@@ -97,7 +114,7 @@
                     @endif               
                 @endif
 
-                <!-- Show the update assignment form for teachers -->
+                <!-- Show the updatwe assignment form for teachers -->
                 @if (Auth::user()->hasRole('teacher'))
                     <div class="row">
                         <div class="col-md-4">
@@ -187,5 +204,16 @@
         let table = new DataTable('#submission-table', {
             lengthMenu:[5,10,15,20]
         });
+
+        $("#progress-bar").css("width", "{{ $progressValue }}%").text("{{ $progressText }}");
+
+        if ({{ $progressValue }} <= 30) {
+            $("#progress-bar").addClass("bg-danger");
+        } else if({{ $progressValue }} <= 70) {
+            $("#progress-bar").addClass("bg-warning");
+        } else {
+            $("#progress-bar").addClass("bg-success");
+        }
+
     </script>
 </x-app-layout>

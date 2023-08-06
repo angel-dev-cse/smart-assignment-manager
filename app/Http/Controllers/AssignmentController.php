@@ -89,21 +89,26 @@ class AssignmentController extends Controller
 
     public function show($id)
     {
-        // Fetch the assignment details by ID
-        $assignment = Assignment::findOrFail($id);
         $user = Auth::user();
+        $assignment = Assignment::findOrFail($id);
+
+        $totalStudent = $assignment->students()->count();
+        $submittedStudent = $assignment->submissions->count();
+
+        $progressValue = $totalStudent > 0 ? round(($submittedStudent / $totalStudent) * 100) : 0;
+        $progressText = $submittedStudent . "/" . $totalStudent;
 
         if ($user->hasRole('teacher')) {
             $submissions = $assignment->submissions;
 
-            return view('assignment', compact('assignment', 'submissions'));
+            return view('assignment', compact('assignment', 'submissions', 'progressText', 'progressValue'));
         } else {
             $submission = $user->student->submissions->where('assignment_id', $id)->first();
 
-            return view('assignment', compact('assignment', 'submission'));
+            return view('assignment', compact('assignment', 'submission', 'progressText', 'progressValue'));
         }
-
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -146,7 +151,7 @@ class AssignmentController extends Controller
         // create notification
         $course = $assignment->course;
         $students = $course->students; // Assuming you have the relationship set up to retrieve students of the course
-        
+
         foreach ($students as $student) {
             $data = [
                 'user_id' => $student->user->id,
@@ -173,10 +178,11 @@ class AssignmentController extends Controller
      */
     public function destroy(Assignment $assignment)
     {
-        
+
     }
 
-    public function delete(Request $request) {
+    public function delete(Request $request)
+    {
         $request->validate([
             'assignment_id' => 'required|exists:assignments,id',
         ]);

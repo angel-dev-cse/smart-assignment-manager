@@ -37,6 +37,11 @@ class Student extends Model
         return $this->hasMany(Enrollment::class)->where('status', 'approved');
     }
 
+    public function assignments(): HasMany
+    {
+        return $this->hasMany(Assignment::class);
+    }
+
     public function submissions(): HasMany
     {
         return $this->hasMany(Submission::class);

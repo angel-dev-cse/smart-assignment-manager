@@ -31,7 +31,11 @@ class Assignment extends Model
     {
         return $this->belongsTo(Course::class);
     }
-
+    
+    public function students() {
+        return $this->course->students;
+    }
+    
     public function submissions(): HasMany
     {
         return $this->hasMany(Submission::class);
