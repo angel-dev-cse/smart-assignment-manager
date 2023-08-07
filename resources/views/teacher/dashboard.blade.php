@@ -68,21 +68,25 @@
                                                         </thead>
                                                         <tbody>
                                                             @foreach($assignments as $key => $assignment)
-                                                                    <tr>
-                                                                        <td class="sorting-1">{{ $key + 1 }}</td>
-                                                                        <td> {{ Illuminate\Support\Str::limit($assignment->topic, 30) }}</td>
-                                                                        <td> {{ $assignment->course->course_name }}</td>
-                                                                        <td> {{ $assignment->course->course_code }}</td>                                                                        
-                                                                        <td>
-                                                                            @if($assignment->daysRemaining() > -1)                                                                                
-                                                                                <p class="badge badge-pill badge-success">Active</p>                                                                                
-                                                                            @else                                                                                
-                                                                                <p class="badge badge-pill badge-dark">Inactive</p>
-                                                                            @endif
-                                                                        </td>
-                                                                        <td>{{ \Carbon\Carbon::parse($assignment->deadline)->format('d F, Y') }}</td>
-                                                                        <td><a href="{{ route('assignment.show', ['id' => $assignment->id]) }}"><button class="btn btn-icon btn-primary"><span class="mdi mdi-eye"></span></button></a></td>
-                                                                    </tr>
+                                                                <tr>
+                                                                    <td class="sorting-1">{{ $key + 1 }}</td>
+                                                                    <td> {{ Illuminate\Support\Str::limit($assignment->topic, 30) }}</td>
+                                                                    <td> {{ $assignment->course->course_name }}</td>
+                                                                    <td> {{ $assignment->course->course_code }}</td>                                                                        
+                                                                    <td>
+                                                                        @if($assignment->daysRemaining() > -1)                                                                                
+                                                                            <p class="badge badge-pill badge-success">Active</p>                                                                                
+                                                                        @else                                                                                
+                                                                            <p class="badge badge-pill badge-dark">Inactive</p>
+                                                                        @endif
+                                                                    </td>
+                                                                    @if($assignment->daysRemaining() > -1)
+                                                                        <p class="fw-bold">{{ \Carbon\Carbon::parse($assignment->deadline)->format('d F, Y') }}</p>
+                                                                    @else
+                                                                        <p class="text-muted">{{ \Carbon\Carbon::parse($assignment->deadline)->format('d F, Y') }}</p>
+                                                                    @endif
+                                                                    <td><a href="{{ route('assignment.show', ['id' => $assignment->id]) }}"><button class="btn btn-icon btn-primary"><span class="mdi mdi-eye"></span></button></a></td>
+                                                                </tr>
                                                             @endforeach
                                                         </tbody>
                                                     </table>

@@ -60,19 +60,22 @@
                                                                 <th class="sorting sorting_asc" tabindex="0" aria-controls="assignment-table">No.</th>
                                                                 <th class="sorting" tabindex="0" aria-controls="assignment-table">Topic</th>
                                                                 <th class="sorting" tabindex="0" aria-controls="assignment-table">Course Name</th>
-                                                                <th class="sorting" tabindex="0" aria-controls="assignment-table">Course Code</th>                                                                @if(Auth::user()->hasRole('student'))
-                                                                <th class="sorting" tabindex="0" aria-controls="assignment-table">Status</th>                                                                @endif
+                                                                <th class="sorting" tabindex="0" aria-controls="assignment-table">Course Code</th>                                                                
+                                                                @if(Auth::user()->hasRole('student'))
+                                                                    <th class="sorting" tabindex="0" aria-controls="assignment-table">Status</th>                                                                
+                                                                @endif
                                                                 <th class="sorting" tabindex="0" aria-controls="assignment-table">Due Date</th>
                                                                 <th>View</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             @foreach($assignments as $key => $assignment)
-                                                                    <tr>
-                                                                        <td class="sorting-1">{{ $key + 1 }}</td>
-                                                                        <td> {{ Illuminate\Support\Str::limit($assignment->topic, 30) }}</td>
-                                                                        <td> {{ $assignment->course->course_name }}</td>
-                                                                        <td> {{ $assignment->course->course_code }}</td>                                                                        @if(Auth::user()->hasRole('student'))
+                                                                <tr>
+                                                                    <td class="sorting-1">{{ $key + 1 }}</td>
+                                                                    <td> {{ Illuminate\Support\Str::limit($assignment->topic, 30) }}</td>
+                                                                    <td> {{ $assignment->course->course_name }}</td>
+                                                                    <td> {{ $assignment->course->course_code }}</td>                                                                        
+                                                                    @if(Auth::user()->hasRole('student'))
                                                                         <td>
                                                                             @if( $assignment->submissionStatus($assignment->id) === "pending")
                                                                                 @if($assignment->daysRemaining() > -1)
@@ -87,10 +90,18 @@
                                                                                     <p class="badge badge-pill badge-danger">Declined</p>
                                                                                 @endif
                                                                             @endif
-                                                                        </td>                                                                        @endif
-                                                                        <td>{{ \Carbon\Carbon::parse($assignment->deadline)->format('d F, Y') }}</td>
-                                                                        <td><a href="{{ route('assignment.show', ['id' => $assignment->id]) }}"><button class="btn btn-icon btn-primary"><span class="mdi mdi-eye"></span></button></a></td>
-                                                                    </tr>
+                                                                        </td>
+                                                                    @endif
+                                                                    <td>
+                                                                        @if($assignment->daysRemaining() > -1)
+                                                                            <p class="fw-bold">{{ \Carbon\Carbon::parse($assignment->deadline)->format('d F, Y') }}</p>
+                                                                        @else
+                                                                            <p class="text-muted">{{ \Carbon\Carbon::parse($assignment->deadline)->format('d F, Y') }}</p>
+                                                                        @endif
+                                                                    </td>
+                                                                    
+                                                                    <td><a href="{{ route('assignment.show', ['id' => $assignment->id]) }}"><button class="btn btn-icon btn-primary"><span class="mdi mdi-eye"></span></button></a></td>
+                                                                </tr>
                                                             @endforeach
                                                         </tbody>
                                                     </table>

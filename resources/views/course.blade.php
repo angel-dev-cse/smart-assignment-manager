@@ -73,18 +73,21 @@
                                         <div class="table-responsive">
                                             <table id="assignment-table" class="table dataTable table-hover">
                                                 <thead>
-                                                    <tr class="text-center">
-                                                        <th class="sorting sorting_asc" tabindex="0" aria-controls="assignment-table">#</th>
+                                                    <tr>
+                                                        <th class="sorting sorting_desc" tabindex="0" aria-controls="assignment-table">#</th>
                                                         <th class="sorting" tabindex="0" aria-controls="assignment-table">Topic</th>
                                                         @if(Auth::user()->hasRole('student'))
                                                             <th class="sorting" tabindex="0" aria-controls="assignment-table">Status</th>
                                                         @endif
                                                         <th class="sorting" tabindex="0" aria-controls="assignment-table">Due Date</th>
+                                                        @if(Auth::user()->hasRole('teacher'))
+                                                            <th class="sorting" tabindex="0" aria-controls="assignment-table">Submissions</th>
+                                                        @endif
                                                         <th>View</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($course->assignments as $key => $assignment)
+                                                    @foreach($assignments as $key => $assignment)
                                                             <tr>
                                                                 <td class="sorting_1">{{ $key + 1 }}</td>
                                                                 <td>{{ Illuminate\Support\Str::limit($assignment->topic, 30) }}</td>
@@ -105,7 +108,40 @@
                                                                         @endif
                                                                     </td>
                                                                 @endif
-                                                                <td>{{ \Carbon\Carbon::parse($assignment->deadline)->format('d F, Y') }}</td>
+                                                                <td>
+                                                                    @if($assignment->daysRemaining() > -1)
+                                                                        <p class="fw-bold">{{ \Carbon\Carbon::parse($assignment->deadline)->format('d F, Y') }}</p>
+                                                                    @else
+                                                                        <p class="text-muted">{{ \Carbon\Carbon::parse($assignment->deadline)->format('d F, Y') }}</p>
+                                                                    @endif
+                                                                </td>
+                                                                @if(Auth::user()->hasRole('teacher'))
+                                                                    <td>
+                                                                    <div id="circleProgress3" class="progressbar-js-circle" style="width: 30%;">
+                                                                        <svg viewBox="0 0 100 100" style="display: block; width: 100%; height: 100%;">
+                                                                            @php
+                                                                                $submissionRatio = $assignment->submissions_count / $course->students->count();
+
+                                                                                if($submissionRatio*100 <= 30) {
+                                                                                    $color = "red";
+                                                                                } else if ($submissionRatio*100 <=70) {
+                                                                                    $color = "yellow";
+                                                                                } else {
+                                                                                    $color = "green";
+                                                                                }
+
+                                                                                $dashFilled = 216.769 * $submissionRatio;
+                                                                            @endphp
+                                                                            <path d="M 50,50 m 0,-34.5 a 34.5,34.5 0 1 1 0,69 a 34.5,34.5 0 1 1 0,-69" stroke="#eee" stroke-width="6" fill-opacity="0"></path>
+                                                                            <path d="M 50,50 m 0,-34.5 a 34.5,34.5 0 1 1 0,69 a 34.5,34.5 0 1 1 0,-69" stroke="{{$color}}" stroke-width="6" fill-opacity="0" style="stroke-dasharray: {{ $dashFilled }}, 216.769; stroke-dashoffset: 0"></path>
+                                                                        </svg>
+                                                                        <div class="progressbar-text" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: rgb(0, 0, 0); font-size: 0.75rem;">
+                                                                            {{$assignment->submissions_count}}
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    </td>
+                                                                @endif
                                                                 <td><a href="{{ route('assignment.show', ['id' => $assignment->id]) }}"><button class="btn btn-circle btn-primary"><span class="mdi mdi-eye"></span></button></a></td>
                                                             </tr>
                                                     @endforeach
@@ -131,7 +167,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($course->students as $key => $student)
+                                                    @foreach($course->students->sortBy('roll') as $key => $student)
                                                         <tr>
                                                             <td class="sorting_1">{{ $key + 1 }}</td>
                                                             <td>
@@ -162,11 +198,7 @@
         let assignmentTable = new DataTable('#assignment-table', {
             lengthMenu: [5, 10, 15, 20, 50, 100],
             pageLength: 10,
-            "columnDefs": [ {
-                "targets": [3],
-                "searchable": false,
-                "sortable": false,
-            } ]
+            order: [[0, 'asc']]
         });
 
         let studentTable = new DataTable('#student-table', {

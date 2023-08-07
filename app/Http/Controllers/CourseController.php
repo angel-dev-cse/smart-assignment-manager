@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assignment;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Submission;
@@ -52,17 +53,13 @@ class CourseController extends Controller
     {
         // Fetch the course details
         $course = Course::findOrFail($id);
-        $course->load([
-            'assignments' => function ($query) {
-                $query->orderBy('created_at', 'desc');
-            },
-            'students' => function ($query) {
-                $query->orderBy('roll', 'asc');
-            },
-        ]);
 
         $department = $course->department;
         $teacherName = $course->teacher()->user->name;
+        $assignments = Assignment::where('course_id', $id)
+            ->withCount('submissions')
+            ->orderByDesc('created_at')
+            ->get();
 
         // get score of the students
         $students = $course->students;
@@ -88,7 +85,7 @@ class CourseController extends Controller
         // }
 
         // Pass the data to the course.blade.php view
-        return view('course', compact('course', 'teacherName', 'department', 'studentScores'));
+        return view('course', compact('course', 'assignments', 'teacherName', 'department', 'studentScores'));
     }
 
     /**
@@ -148,7 +145,7 @@ class CourseController extends Controller
     public function getScore(Course $course)
     {
         // Get the students in the course
-        
+
 
         return view('course', compact('course', 'studentScores'));
     }
