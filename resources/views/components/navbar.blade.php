@@ -35,7 +35,7 @@
               </a>
               <div class="dropdown-divider"></div>
               @foreach($chats as $chat)
-                <a class="dropdown-item preview-item" href="#" class="btn btn-info open-chat-popup" data-recipient="{{$chat->recipient()->id}}">
+                <a href="#" class="open-chat-popup dropdown-item preview-item" data-recipient="{{$chat->recipient()->id}}">
                   <div class="preview-thumbnail">
                     <img src="{{ asset('startheme/images/faces/face10.jpg') }}" alt="image" class="img-sm profile-pic">
                   </div>
