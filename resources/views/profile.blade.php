@@ -40,30 +40,11 @@
                                     @if (auth()->user() && $user->id === auth()->user()->id)
                                             <a href="{{ route('profile.edit') }}" class="btn btn-primary btn mt-20">Update Profile</a>
                                     @endif
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="card mx-36 mt-4" id="editCard" style="display: none;">
-                    <div class="row" >
-                        <div class="col-md-12">
-                            <div class="card-body">
-                                <h5 class="card-title">Update Profile</h5>
-                                <form class="forms-sample" action="{{ route('profile.update') }}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="course_id" id="update_course_id" value="">
-                                    <div class="form-group">
-                                        <label for="course_name">Name</label>
-                                        <input type="text" class="form-control" id="update_course_name" name="course_name" value="{{$user->name}}" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="course_code">Email</label>
-                                        <input type="text" class="form-control" id="update_course_code" name="course_code" value="{{$user->email}}" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary active">Update Profile</button>
-                                </form>
+                                    @if ($user->id !== auth()->user()->id)
+                                        <a href="#" class="btn btn-info open-chat-popup" data-recipient="{{$user->id}}">Message</a>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>

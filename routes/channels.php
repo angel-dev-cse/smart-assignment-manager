@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+Broadcast::channel('chat.{chatId}', function ($user, $chatId) {
+    // Your logic to determine if the user can access the chat channel
+    // return $user->chats->contains('id', $chatId);
+    return true; // Replace this with your authentication logic
+});

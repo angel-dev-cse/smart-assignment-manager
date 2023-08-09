@@ -21,6 +21,32 @@
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown"> 
+            <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="icon-bubble"></i>
+              @if ($notificationCount>0)
+                <span class="count">{{ $notificationCount }}</span>
+              @endif
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="countDropdown" style="max-height: 15rem; overflow-y: auto;">
+              <a class="dropdown-item py-3">
+                <p class="mb-0 font-weight-medium float-left">You have {{ $notificationCount }} unread notifications</p>
+                <span class="badge badge-pill badge-primary float-right">View all</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              @foreach($chats as $chat)
+                <a class="dropdown-item preview-item" href="#" class="btn btn-info open-chat-popup" data-recipient="{{$chat->recipient()->id}}">
+                  <div class="preview-thumbnail">
+                    <img src="{{ asset('startheme/images/faces/face10.jpg') }}" alt="image" class="img-sm profile-pic">
+                  </div>
+                  <div class="preview-item-content flex-grow py-2">
+                    <p class="preview-subject ellipsis font-weight-medium text-dark" style="overflow:visible">{{$chat->recipient()->name}}</p>
+                    <p class="small-text text-dark m-0"> </p>
+                  </div>
+                </a>
+              @endforeach
+            </div>
+          </li>
           <li class="nav-item dropdown"> 
             <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="icon-bell"></i>

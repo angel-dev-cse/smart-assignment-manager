@@ -65,4 +65,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notification::class);
     }
+
+    public function chats(): HasMany
+    {
+        return $this->hasMany(Chat::class, 'user_id_1', 'id')
+            ->orWhere('user_id_2', $this->id);
+    }
 }

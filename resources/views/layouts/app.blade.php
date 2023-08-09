@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-current-user-id="{{auth()->user()->id}}">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -49,7 +49,6 @@
     <script src="{{ asset('startheme/vendors/progressbar.js/progressbar.min.js') }}"></script>
     <script src="{{ asset('startheme/js/dashboard.js') }}"></script>
     <script src="{{ asset('startheme/js/Chart.roundedBarCharts.js') }}"></script>
-    <script src="dist/perfect-scrollbar.js"></script>
 
     <!-- Google Viewer -->
     <script src="https://www.google.com/jsapi"></script>
@@ -75,6 +74,7 @@
                     {{ session('error') }}
                 </div>
             @endif
+            <x-chat-popup/>
             {{ $slot }}
         </main>
     </div>

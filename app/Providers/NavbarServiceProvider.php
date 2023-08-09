@@ -48,10 +48,15 @@ class NavbarServiceProvider extends ServiceProvider
             $notifications = Notification::where('user_id', $user->id)->orderBy('created_at', 'desc')->where('seen', false)->get();
 
             $notificationCount = $notifications->count();
+
+            $chats = auth()->user()->chats;
+
+            // dd($chats);
             
             $view->with('greeting', $greeting);
             $view->with('notifications', $notifications);
             $view->with('notificationCount', $notificationCount);
+            $view->with('chats', $chats);
             $view->with('user', $user);
         });
     }

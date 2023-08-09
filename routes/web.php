@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Carbon\Traits\Test;
@@ -36,7 +37,12 @@ Route::middleware('auth')->group(function () {
         return view('auth.verify-account');
     })->name('verification.page');
     Route::post('/verification/reapply', [RegisteredUserController::class, 'reapply'])->name('verification.reapply');
+    Route::get('/chats', 'ChatController@index')->name('chats.index');
+    Route::post('/chats/{chat}/send', [ChatController::class, 'sendMessage'])->name('chats.send');
+    Route::get('/chats/{chat}', [ChatController::class, 'show'])->name('chats.show');
+    Route::get('/get-chat-id/{id}', [ChatController::class, 'getChatId'])->name('chats.getId');
 });
+
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/registration/index', [AdminController::class, 'registrations'])->name('registration.index');

@@ -196,6 +196,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\NavbarServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
     ],
 
     /*
