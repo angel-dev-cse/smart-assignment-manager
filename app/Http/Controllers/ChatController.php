@@ -66,4 +66,10 @@ class ChatController extends Controller
         return response()->json(['chatId' => $chat->id]);
     }
 
+    public function getChatData($id) : JsonResponse {
+        // should return sender name, recipient name for now
+        $chat = Chat::findorFail($id);
+        
+    }
+
 }

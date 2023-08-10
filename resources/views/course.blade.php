@@ -86,6 +86,7 @@
                                                         <th>View</th>
                                                     </tr>
                                                 </thead>
+
                                                 <tbody>
                                                     @foreach($assignments as $key => $assignment)
                                                             <tr>

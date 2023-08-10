@@ -21,16 +21,16 @@
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
-        <li class="nav-item dropdown"> 
+        <li class="nav-item dropdown hidden"> 
             <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="icon-bubble"></i>
               @if ($notificationCount>0)
-                <span class="count">{{ $notificationCount }}</span>
+                
               @endif
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="countDropdown" style="max-height: 15rem; overflow-y: auto;">
               <a class="dropdown-item py-3">
-                <p class="mb-0 font-weight-medium float-left">You have {{ $notificationCount }} unread notifications</p>
+                <p class="mb-0 font-weight-medium float-left">You have {{ $chats->count() }} active chats</p>
                 <span class="badge badge-pill badge-primary float-right">View all</span>
               </a>
               <div class="dropdown-divider"></div>
@@ -41,7 +41,7 @@
                   </div>
                   <div class="preview-item-content flex-grow py-2">
                     <p class="preview-subject ellipsis font-weight-medium text-dark" style="overflow:visible">{{$chat->recipient()->name}}</p>
-                    <p class="small-text text-dark m-0"> </p>
+                    <p class="small-text text-dark m-0">{{$chat->messages->last()->content ?? "No messages yet!"}}</p>
                   </div>
                 </a>
               @endforeach

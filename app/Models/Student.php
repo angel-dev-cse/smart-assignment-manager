@@ -16,7 +16,6 @@ class Student extends Model
         'user_id',
         'department_id',
         'roll',
-        'department_id',
         'semester',
         'session',
     ];

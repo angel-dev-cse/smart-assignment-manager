@@ -56,6 +56,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
 
+            async function getUserName($id) {
+                try {
+                    const response = await fetch(`/get-user-name/${id}`);
+                    const data 
+                }
+            }
+
             async function showChat(id) {
                 try {
                     const response = await fetch(`/chats/${id}`);
@@ -121,6 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             await getChatId(recipientId);
+            recipientName = 
 
             // Populate chat content using recipientId
             if (chatId) {

@@ -6,6 +6,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Carbon\Traits\Test;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/chats/{chat}/send', [ChatController::class, 'sendMessage'])->name('chats.send');
     Route::get('/chats/{chat}', [ChatController::class, 'show'])->name('chats.show');
     Route::get('/get-chat-id/{id}', [ChatController::class, 'getChatId'])->name('chats.getId');
+    Route::get('/get-user-name/{id}', function ($id) {
+        return Auth::user()->name;
+    })->name('user.getName');
 });
 
 
@@ -99,14 +103,6 @@ Route::middleware(['web_except'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'role:teacher'])->get('/test', function () {
-    return 'Role middleware working for teacher.';
-});
-
-// web.php
-Route::post('/test-submit', function () {
-    return 'Test route working!';
-});
 
 
 require __DIR__ . '/auth.php';
