@@ -80,11 +80,13 @@
                                                                             <p class="badge badge-pill badge-dark">Inactive</p>
                                                                         @endif
                                                                     </td>
-                                                                    @if($assignment->daysRemaining() > -1)
-                                                                        <p class="fw-bold">{{ \Carbon\Carbon::parse($assignment->deadline)->format('d F, Y') }}</p>
-                                                                    @else
-                                                                        <p class="text-muted">{{ \Carbon\Carbon::parse($assignment->deadline)->format('d F, Y') }}</p>
-                                                                    @endif
+                                                                    <td>
+                                                                        @if($assignment->daysRemaining() > -1)
+                                                                            <p class="fw-bold">{{ \Carbon\Carbon::parse($assignment->deadline)->format('d F, Y') }}</p>
+                                                                        @else
+                                                                            <p class="text-muted">{{ \Carbon\Carbon::parse($assignment->deadline)->format('d F, Y') }}</p>
+                                                                        @endif
+                                                                    </td>
                                                                     <td><a href="{{ route('assignment.show', ['id' => $assignment->id]) }}"><button class="btn btn-icon btn-primary"><span class="mdi mdi-eye"></span></button></a></td>
                                                                 </tr>
                                                             @endforeach
