@@ -261,7 +261,12 @@ document.addEventListener("DOMContentLoaded", function () {
             if (chatId) {
                 await populateMessages(chatId);
             } else {
-                messageContainer.append("Send A Message!");
+                messageContainer.append(`
+                    <div class="d-flex flex-column align-items-center justify-content-center" style="height: 100%;">
+                        <span class="mdi mdi-message-text mdi-48px text-muted mb-3"></span>
+                        <p class="small-text text-muted">Send a message...</p>
+                    </div>
+                `);
             }
 
             showChatWindow();
@@ -277,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (!chatId) {
                     console.log("Creating new chat id");
                     await createChatId(); // attach listener inside of it
-                } 
+                }
 
                 if (messageContent) {
                     try {

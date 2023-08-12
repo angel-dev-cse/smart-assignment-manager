@@ -3,7 +3,7 @@
         <x-sidebar />
         <div class="main-panel">
             <div class="content-wrapper">
-                <div class="card mx-36">
+                <div class="card card-shadow mx-36">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="">
