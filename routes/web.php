@@ -6,6 +6,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Carbon\Traits\Test;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -42,9 +43,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/chats/{chat}/send', [ChatController::class, 'sendMessage'])->name('chats.send');
     Route::get('/chats/{chat}', [ChatController::class, 'show'])->name('chats.show');
     Route::get('/get-chat-id/{id}', [ChatController::class, 'getChatId'])->name('chats.getId');
-    Route::get('/get-user-name/{id}', function ($id) {
-        return Auth::user()->name;
-    })->name('user.getName');
+    Route::get('/get-chat-data/{id}', [ChatController::class, 'getChatData'])->name('chats.getData');
+    Route::get('/get-user/{id}', function ($id) {
+        return response()->json(User::findorFail($id));
+    })->name('getUser');
+    Route::post('/create-chat', [ChatController::class, 'create'])->name('chat.create');
 });
 
 

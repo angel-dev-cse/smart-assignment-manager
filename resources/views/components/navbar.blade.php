@@ -21,7 +21,7 @@
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
-        <li class="nav-item dropdown hidden"> 
+        <li class="nav-item dropdown"> 
             <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="icon-bubble"></i>
               @if ($notificationCount>0)
