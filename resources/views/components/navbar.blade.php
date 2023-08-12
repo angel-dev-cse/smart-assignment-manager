@@ -21,12 +21,9 @@
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
-        <li class="nav-item dropdown"> 
+          <li class="nav-item dropdown"> 
             <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="icon-bubble"></i>
-              @if ($notificationCount>0)
-                
-              @endif
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="countDropdown" style="max-height: 15rem; overflow-y: auto;">
               <a class="dropdown-item py-3">
@@ -47,6 +44,7 @@
               @endforeach
             </div>
           </li>
+
           <li class="nav-item dropdown"> 
             <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="icon-bell"></i>
@@ -74,6 +72,7 @@
               @endforeach
             </div>
           </li>
+
           <li class="nav-item dropdown d-none d-lg-block user-dropdown">
             <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
             @if ($user->role === 'student')
@@ -85,16 +84,28 @@
             @endif
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
               <div class="dropdown-header text-center">
-                <img class="img-md rounded-circle" src="{{ asset('startheme/images/faces/face8.jpg') }}" alt="Profile image">
+                <img class="img-md rounded-circle inline-block" src="{{ asset('startheme/images/faces/face8.jpg') }}" alt="Profile image">
                 <p class="mb-1 mt-3 font-weight-semibold">{{ $user->name }}</p>
                 <p class="fw-light text-muted mb-0">{{ $user->email }}</p>
               </div>
-              <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('profileForm').submit();">My Profile</a>
 
-              <!-- Add this hidden form on your page -->
+              <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('profileForm').submit();">
+                <i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i>
+                My Profile
+              </a>
+
               <form id="profileForm" class="form" method="POST" action="{{ route('profile.edit')}}">
-                  @csrf <!-- Add CSRF token for Laravel to validate the request -->
+                  @csrf
                   <input type="hidden" name="id" value="{{$user->id}}" />
+              </form>
+
+              <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('profileForm_admin').submit();">
+                <i class="dropdown-item-icon mdi mdi-seat-recline-extra text-primary me-2"></i>
+                Contact Admin
+              </a>
+              <form id="profileForm_admin" class="form" method="POST" action="{{ route('profile.show') }}">
+                  @csrf
+                  <input type="hidden" name="id" value="151" />
               </form>
               
               <form method="POST" action="{{ route('logout') }}">

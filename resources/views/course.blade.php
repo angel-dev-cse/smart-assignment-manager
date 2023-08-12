@@ -11,7 +11,18 @@
                             <div class="card-body">
                                 <p class="card-description">Course Code: {{ $course -> course_code }}</p>
                                 <p class="card-text text-mute">Course Teacher</p>
-                                <h5 class="card-title">{{ $teacherName }}</h5>
+                                <a href="#" class="" onclick="event.preventDefault(); document.getElementById('profileForm{{$teacher->user->id}}').submit();">
+                                    <h5 class="card-title link-primary">
+                                        <span class="mdi mdi-24px mdi-human-greeting"></span>
+                                        {{ $teacher->user->name }}
+                                    </h5>
+                                </a>
+
+                                <form id="profileForm{{$teacher->user->id}}" class="form" method="POST" action="{{ route('profile.show') }}">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $teacher->user->id }}" />
+                                </form>
+
                                 <p class="card-text text-mute">Total Students</p>
                                 <h5 class="card-title">{{ $course->students->count() }}</h5>
                                 <p class="card-text text-mute">{{ $department -> description }}</p>
@@ -172,7 +183,7 @@
                                                         <tr>
                                                             <td class="sorting_1">{{ $key + 1 }}</td>
                                                             <td>
-                                                                <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('profileForm{{$key}}').submit();"><b>{{ $student->user->name }}</b></a>
+                                                                <a href="#" class="" onclick="event.preventDefault(); document.getElementById('profileForm{{$key}}').submit();"><b>{{ $student->user->name }}</b></a>
 
                                                                 <form id="profileForm{{$key}}" class="form" method="POST" action="{{ route('profile.show') }}">
                                                                     @csrf

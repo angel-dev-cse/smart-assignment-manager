@@ -55,7 +55,7 @@ class CourseController extends Controller
         $course = Course::findOrFail($id);
 
         $department = $course->department;
-        $teacherName = $course->teacher()->user->name;
+        $teacher = $course->teacher();
         $assignments = Assignment::where('course_id', $id)
             ->withCount('submissions')
             ->orderByDesc('created_at')
@@ -85,7 +85,7 @@ class CourseController extends Controller
         // }
 
         // Pass the data to the course.blade.php view
-        return view('course', compact('course', 'assignments', 'teacherName', 'department', 'studentScores'));
+        return view('course', compact('course', 'assignments', 'teacher', 'department', 'studentScores'));
     }
 
     /**
