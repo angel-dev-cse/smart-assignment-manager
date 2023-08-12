@@ -119,6 +119,10 @@
                                         <input class="form-check-input" type="radio" name="status" id="reject" value="declined">
                                         <label class="form-check-label" for="reject">Reject Submisison</label>
                                     </div>
+                                    <div class="form-check form-check-radio">
+                                        <input class="form-check-input" type="radio" name="status" id="resubmission" value="pending">
+                                        <label class="form-check-label" for="resubmission">Allow Resubmission</label>
+                                    </div>
                                 </div>
                                 <input type="hidden" id="submission_id" name="submission_id" value="{{ $submission->id }}" required>
                                 <div class="form-group col-md-6">
@@ -151,6 +155,11 @@
                                         <div class="form-check form-check-radio">
                                             <input class="form-check-input" type="radio" name="status" id="reject" value="declined">
                                             <label class="form-check-label" for="reject">Reject Submisison</label>
+                                        </div>
+
+                                        <div class="form-check form-check-radio">
+                                            <input class="form-check-input" type="radio" name="status" id="resubmit" value="pending">
+                                            <label class="form-check-label" for="resubmit">Allow Resubmission</label>
                                         </div>
                                     </div>
                                     <input type="hidden" id="submission_id" name="submission_id" value="{{ $submission->id }}" required>
@@ -202,4 +211,5 @@
             });
         });
     </script>
+
 </x-app-layout>

@@ -159,7 +159,7 @@ class SubmissionController extends Controller
             'submission_id' => 'required|exists:submissions,id',
             'review' => 'required',
             'score' => 'required|integer',
-            'status' => 'required|in:approved,declined',
+            'status' => 'required|in:approved,declined,pending',
         ]);
 
         $submission = Submission::findOrFail($request->submission_id);
