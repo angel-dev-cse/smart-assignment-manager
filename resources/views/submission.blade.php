@@ -174,7 +174,7 @@
 
                 <!-- Show the update form to the student -->
                 @if (Auth::user()->hasRole('student'))
-                    @if($submission->status==='pending')
+                    @if($submission->status==='pending' && $assignment->daysRemaining() > -1)
                         <div class="card card-shadow mt-4">
                             <div class="card-body">
                                 <h5 class="card-title">Update your submission</h5>
