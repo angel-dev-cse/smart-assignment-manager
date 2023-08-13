@@ -5,7 +5,7 @@
             <div class="content-wrapper">
                 <div class="row">
                     <div class="col-lg-3">
-                        <div class="card">
+                        <div class="card card-shadow">
                             <div class="card-body">
                                 <h5 class="card-title">Add New Department</h5>
                                 <form class="forms-sample" action="{{ route('department.store')}}" method="post">
@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="col-lg-9">
-                        <div class="card">
+                        <div class="card card-shadow">
                             <div class="card-body">
                                 <h5 class="card-title">Departments</h5>
                                 <div class="table-responsive">
@@ -33,8 +33,8 @@
                                         <thead>
                                             <tr class="text-center">
                                                 <th class="sorting sorting_asc" tabindex="0" aria-controls="departments-table">#</th>
-                                                <th class="sorting" tabindex="0" aria-controls="departments-table">Department Name</th>
-                                                <th class="sorting" tabindex="0" aria-controls="departments-table">Description</th>
+                                                <th class="sorting text-center" tabindex="0" aria-controls="departments-table">Department Name</th>
+                                                <th class="sorting text-center" tabindex="0" aria-controls="departments-table">Description</th>
                                                 <th></th>
                                                 <th></th>
                                             </tr>
@@ -72,7 +72,7 @@
 
                 <div class="row">
                     <div class="col-lg-10 mt-3 mx-24" id="editCard" style="display: none;">
-                        <div class="card">
+                        <div class="card card-shadow">
                             <div class="card-body">
                                 <h5 class="card-title">Edit Department</h5>
                                 <form class="forms-sample" action="{{ route('department.update') }}" method="post">

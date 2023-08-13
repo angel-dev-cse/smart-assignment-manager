@@ -165,16 +165,16 @@
                                             <thead>
                                                 <tr>
                                                     <th class="sorting sorting_asc" tabindex="0" aria-controls="submission-table">No</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="submission-table">Submitted By</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="submission-table">ID</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="submission-table">Submitted On</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="submission-table">Status</th>
+                                                    <th class="sorting text-center" tabindex="0" aria-controls="submission-table">Submitted By</th>
+                                                    <th class="sorting text-center" tabindex="0" aria-controls="submission-table">ID</th>
+                                                    <th class="sorting text-center" tabindex="0" aria-controls="submission-table">Submitted On</th>
+                                                    <th class="sorting text-center" tabindex="0" aria-controls="submission-table">Status</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($submissions as $key=>$submission)
-                                                    <tr>
+                                                    <tr class="text-center">
                                                         <td>{{ $key + 1 }}</td>
                                                         <td>{{$submission->student->user->name}}</td>
                                                         <td>{{$submission->student->roll}}</td>
@@ -202,7 +202,7 @@
     </div>
     <script>
         let table = new DataTable('#submission-table', {
-            lengthMenu:[5,10,15,20]
+            lengthMenu:[10,20,50]
         });
 
         $("#progress-bar").css("width", "{{ $progressValue }}%").text("{{ $progressText }}");

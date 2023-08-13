@@ -21,28 +21,28 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="tab-content card" id="myTabContent">
+                            <div class="tab-content card card-shadow" id="myTabContent">
                                 <div class="tab-pane fade show active" id="courses" role="tabpanel" aria-labelledby="courses-tab">
                                     <!-- Display enrollments here -->
-                                        <div class="table-responsive nowrap-table">
-                                            <table class="table table-hover">
+                                        <div class="table-responsive nowrap-table m-2">
+                                            <table id="student-registrations-table" class="table table-hover dataTable">
                                                 <thead>
-                                                    <tr class="text-center">
-                                                        <th>No.</th>
-                                                        <th>Name</th>
-                                                        <th>Email</th>
-                                                        <th>Roll</th>
-                                                        <th>Semester</th>
-                                                        <th>Session</th>
-                                                        <th>Department</th>
+                                                    <tr>
+                                                        <th class="sorting sorting_asc text-center" tabindex="0" aria-controls="student-registrations-table">No.</th>
+                                                        <th class="sorting text-center" tabindex="0" aria-controls="student-registrations-table">Name</th>
+                                                        <th class="sorting text-center" tabindex="0" aria-controls="student-registrations-table">Email</th>
+                                                        <th class="sorting text-center" tabindex="0" aria-controls="student-registrations-table">Roll</th>
+                                                        <th class="sorting text-center" tabindex="0" aria-controls="student-registrations-table">Semester</th>
+                                                        <th class="sorting text-center" tabindex="0" aria-controls="student-registrations-table">Session</th>
+                                                        <th class="sorting text-center" tabindex="0" aria-controls="student-registrations-table">Department</th>
                                                         <th></th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach($studentRegistrations as $key => $registration)
-                                                            <tr class="text-center">
-                                                                <td>{{ $key + 1 }}</td>
+                                                            <tr class="text-center text-break">
+                                                                <td class="sorting_1">{{ $key + 1 }}</td>
                                                                 <td class="text-capitalize"><b>{{ $registration->name }}</b></td>
                                                                 <td>{{ $registration->email }}</td>
                                                                 <td>{{ $registration->student->roll }}</td>
@@ -74,15 +74,15 @@
 
                                 <div class="tab-pane fade" id="assignments" role="tabpanel" aria-labelledby="assignments-tab">
                                     <!-- Display teaches here -->
-                                    <div class="table-responsive nowrap-table">
-                                        <table class="table table-hover">
+                                    <div class="table-responsive nowrap-table m-2">
+                                        <table id="teacher-registrations-table" class="table table-hover dataTable">
                                             <thead>
-                                                <tr class="text-center">
-                                                    <th>No.</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Qualification</th>
-                                                    <th>Department</th>
+                                                <tr>
+                                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="teacher-registrations-table">No.</th>
+                                                    <th class="sorting text-center" tabindex="0" aria-controls="teacher-registrations-table">Name</th>
+                                                    <th class="sorting text-center" tabindex="0" aria-controls="teacher-registrations-table">Email</th>
+                                                    <th class="sorting text-center" tabindex="0" aria-controls="teacher-registrations-table">Qualification</th>
+                                                    <th class="sorting text-center" tabindex="0" aria-controls="teacher-registrations-table">Department</th>
                                                     <th></th>
                                                     <th></th>
                                                 </tr>
@@ -90,7 +90,7 @@
                                             <tbody>
                                                 @foreach($teacherRegistrations as $key => $registration)
                                                     <tr class="text-center">
-                                                        <td>{{ $key + 1 }}</td>
+                                                        <td class="sorting_1">{{ $key + 1 }}</td>
                                                         <td class="text-capitalize"><b>{{ $registration->name }}</b></td>
                                                         <td>{{ $registration->email }}</td>
                                                         <td class="mx-24">{{ $registration->teacher->qualification }}</td>
@@ -124,4 +124,17 @@
             </div>
         </div>
     </div>
+    <script>
+        let studentRegistrationsTable = new DataTable("#student-registrations-table", {
+            lengthMenu: [10, 20, 50, 100],
+            pageLength: 10,
+            order: [[0, 'asc']]
+        });
+
+        let teacherRegistrationsTable = new DataTable("#teacher-registrations-table", {
+            lengthMenu: [10, 20, 50, 100],
+            pageLength: 10,
+            order: [[0, 'asc']]
+        });
+    </script>
 </x-app-layout>

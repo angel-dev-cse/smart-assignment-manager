@@ -58,19 +58,19 @@
                                                         <thead>
                                                             <tr>
                                                                 <th class="sorting sorting_asc" tabindex="0" aria-controls="assignment-table">No.</th>
-                                                                <th class="sorting" tabindex="0" aria-controls="assignment-table">Topic</th>
-                                                                <th class="sorting" tabindex="0" aria-controls="assignment-table">Course Name</th>
-                                                                <th class="sorting" tabindex="0" aria-controls="assignment-table">Course Code</th>                                                                
+                                                                <th class="sorting text-center" tabindex="0" aria-controls="assignment-table">Topic</th>
+                                                                <th class="sorting text-center" tabindex="0" aria-controls="assignment-table">Course Name</th>
+                                                                <th class="sorting text-center" tabindex="0" aria-controls="assignment-table">Course Code</th>                                                                
                                                                 @if(Auth::user()->hasRole('student'))
-                                                                    <th class="sorting" tabindex="0" aria-controls="assignment-table">Status</th>                                                                
+                                                                    <th class="sorting text-center" tabindex="0" aria-controls="assignment-table">Status</th>                                                                
                                                                 @endif
-                                                                <th class="sorting" tabindex="0" aria-controls="assignment-table">Due Date</th>
+                                                                <th class="sorting text-center" tabindex="0" aria-controls="assignment-table">Due Date</th>
                                                                 <th>View</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             @foreach($assignments as $key => $assignment)
-                                                                <tr>
+                                                                <tr class="text-center">
                                                                     <td class="sorting-1">{{ $key + 1 }}</td>
                                                                     <td> {{ Illuminate\Support\Str::limit($assignment->topic, 30) }}</td>
                                                                     <td> {{ $assignment->course->course_name }}</td>
