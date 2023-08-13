@@ -25,10 +25,10 @@
             <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="icon-bubble"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="countDropdown" style="max-height: 15rem; overflow-y: auto;">
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="countDropdown" style="max-height: 15rem; width: 20rem; overflow-y: auto;">
               <a class="dropdown-item py-3">
+                <span class="mdi mdi-24px mdi-wechat mr-3"></span>
                 <p class="mb-0 font-weight-medium float-left">You have {{ $chats->count() }} active chats</p>
-                <span class="badge badge-pill badge-primary float-right">View all</span>
               </a>
               <div class="dropdown-divider"></div>
               @foreach($chats as $chat)
@@ -54,8 +54,8 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="countDropdown" style="max-height: 15rem; overflow-y: auto;">
               <a class="dropdown-item py-3">
+                <span class="mdi mdi-24px mdi-bell-outline  mr-3"></span>
                 <p class="mb-0 font-weight-medium float-left">You have {{ $notificationCount }} unread notifications</p>
-                <span class="badge badge-pill badge-primary float-right">View all</span>
               </a>
               <div class="dropdown-divider"></div>
               @foreach($notifications as $notification)
