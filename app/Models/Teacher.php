@@ -58,8 +58,14 @@ class Teacher extends Model
     public function getGrading()
     {
         $grades = TeacherGrade::where('teacher_id', $this->id)->count();
-        $grade = TeacherGrade::where('teacher_id', $this->id)->sum('grade')/$grades;
         
+        if ($grades > 0) {
+            $grade = TeacherGrade::where('teacher_id', $this->id)->sum('grade')/$grades;
+        } else {
+            $grade = 0;
+            return 'No rating yet!';
+        }
+
         if ($grade >= 91 && $grade <= 100) {
             return 'A++';
         } elseif ($grade >= 81 && $grade <= 90) {

@@ -43,7 +43,7 @@
                                     @endif
 
                                     @if ($user->id !== auth()->user()->id)
-                                        <a href="#" class="btn btn-info open-chat-popup" data-recipient="{{$user->id}}">Message</a>
+                                        <a href="#" class="btn btn-info open-chat-popup mt-4" data-recipient="{{$user->id}}">Message</a>
                                     @endif
                                 </div>
                             </div>
