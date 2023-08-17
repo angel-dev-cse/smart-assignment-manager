@@ -72,6 +72,9 @@ Route::middleware(['auth', 'role:teacher'])->group(function () {
     Route::post('/apply/teacher', [TeachController::class, 'store'])->name('teacher.application.store');
     Route::post('/assignment/create', [AssignmentController::class, 'store'])->name('assignment.create');
     Route::post('/assignment/update', [AssignmentController::class, 'update'])->name('assignment.update');
+    Route::post('/preapprovedemail/add', [CourseController::class, 'addPreapprovedEmail'])->name('preapprovedemail.add');
+    Route::post('/preapprovedemail/update', [CourseController::class, 'updatePreapprovedEmail'])->name('preapprovedemail.update');
+    Route::post('/preapprovedemail/delete', [CourseController::class, 'deletePreapprovedEmail'])->name('preapprovedemail.delete');
 });
 
 Route::middleware(['auth', 'role:student'])->group(function () {

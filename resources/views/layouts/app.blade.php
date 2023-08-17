@@ -65,13 +65,23 @@
         <main>
             @if (session('success'))
                 <div class="alert alert-fill-success mx-20">
-                    <i class="ti-info-alt"></i>
+                    <i class="mdi mdi-12px mdi-information-outline"></i>
                     {{ session('success') }}
                 </div>
             @endif
             @if (session('error'))
                 <div class="alert alert-fill-danger">
+                    <i class="mdi mdi-12px mdi-close-circle-outline"></i>
                     {{ session('error') }}
+                </div>
+            @endif
+            @if ($errors->any())
+                <div class="alert alert-fill-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li><i class="mdi mdi-12px mdi-close-circle-outline"></i> {{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
             <x-chat-popup/>

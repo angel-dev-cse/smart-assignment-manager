@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Enrollment;
+use App\Models\PreApprovedEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,16 +52,42 @@ class EnrollmentController extends Controller
         ]);
 
         $studentId = Auth::user()->student->id;
+        $studentEmail = Auth::user()->email;
+        $courseId = $request->input('course_id');
 
-        // Save the course application to the 'enrollment' table
-        Enrollment::create([
-            'course_id' => $request->input('course_id'),
+        // Check if the student's email is in the pre_approved_emails table for the given course_id
+        $isPreApproved = PreApprovedEmails::where('course_id', $courseId)
+            ->where('student_email', $studentEmail)
+            ->exists();
+
+        $status = $isPreApproved ? 'approved' : 'pending';
+
+        // Save the course application to the enrollments table
+        $enrollment = Enrollment::create([
+            'course_id' => $courseId,
             'student_id' => $studentId,
-            'status' => 'pending',
+            'status' => $status,
         ]);
+
+        if ($status === 'approved') {
+            // create notification for preapproved emails
+            $data = [
+                'user_id' => $enrollment->student->user->id,
+                'title' => 'Enrollment application ' . $status . '!',
+                'description' => 'in ' . $enrollment->course->course_name,
+                'route' => 'student.application'
+            ];
+
+            $notificationController = new NotificationController();
+            $notificationController->store(new Request($data));
+
+            // redirect to homepage with success message
+            return redirect()->route('dashboard')->with('success', 'Course application approved!');
+        }
 
         return redirect()->route('student.application')->with('success', 'Course application submitted successfully!');
     }
+
 
     public function delete(Request $request)
     {
@@ -93,7 +120,7 @@ class EnrollmentController extends Controller
         if ($status === 'approved') {
             // save with `approved` value, delete if `declined`
             $enrollment->status = $status;
-            $enrollment->save(); # code...
+            $enrollment->save();
         } else {
             $enrollment->deleteEnrollment();
         }

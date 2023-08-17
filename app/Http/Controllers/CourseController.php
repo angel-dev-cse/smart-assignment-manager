@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Assignment;
 use App\Models\Course;
 use App\Models\Department;
+use App\Models\Enrollment;
+use App\Models\PreApprovedEmails;
+use App\Models\Student;
 use App\Models\Submission;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -77,6 +80,8 @@ class CourseController extends Controller
             $studentScores[$student->id] = $score;
         }
 
+        $preApprovedEmails = PreApprovedEmails::where('course_id', $id)->get();
+
         // Fetch assignments and students data conditionally based on the user's role
         // if (Auth::user()->hasRole('teacher')) {
         //     $assignments = $course->assignments; // Assuming you have the relationship set up in the models
@@ -85,7 +90,7 @@ class CourseController extends Controller
         // }
 
         // Pass the data to the course.blade.php view
-        return view('course', compact('course', 'assignments', 'teacher', 'department', 'studentScores'));
+        return view('course', compact('course', 'assignments', 'teacher', 'department', 'studentScores', 'preApprovedEmails'));
     }
 
     /**
@@ -148,5 +153,96 @@ class CourseController extends Controller
 
 
         return view('course', compact('course', 'studentScores'));
+    }
+
+    public function addPreApprovedEmail(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'course_id' => 'required|exists:courses,id',
+                'student_email' => 'required|string|email|unique:pre_approved_emails,student_email'
+            ]);
+
+            $courseId = $validated['course_id'];
+            $student = Student::whereHas('user', function ($query) use ($validated) {
+                $query->where('email', $validated['student_email']);
+            })->first();
+            
+            // Allow previous enrollments requests that are still pending
+            if ($student) {
+                $studentId = $student->id;
+
+                // dd($studentId);
+                $enrollment = Enrollment::where('student_id', $studentId)
+                ->where('course_id', $courseId)
+                ->where('status', 'pending');
+                
+                if ($enrollment) {
+                    $enrollmentData = $enrollment->first();
+                    $studentUserId = $enrollmentData->student->user->id;
+                    $status = "approved";
+                    $courseName = $enrollmentData->course->course_name;
+
+                    $enrollment->update(['status' => 'approved']);
+                    
+                    $data = [
+                        'user_id' => $studentUserId,
+                        'title' => 'Enrollment application ' . $status . '!',
+                        'description' => 'in ' . $courseName,
+                        'route' => 'student.application'
+                    ];
+
+                    $notificationController = new NotificationController();
+                    $notificationController->store(new Request($data));
+                }
+            }
+            
+            PreApprovedEmails::create($validated);
+
+            return redirect()->back()->with('success', 'Email added successfully!')->withFragment('preapproved-emails');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return redirect()->back()->with('error', 'Email already exists in the pre-approved list.')->withFragment('preapproved-emails');
+            }
+            return redirect()->back()->with('error', 'An error occurred while adding the email.')->withFragment('preapproved-emails');
+        }
+    }
+
+    public function updatePreApprovedEmail(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'id' => 'required|exists:pre_approved_emails,id',
+                'student_email' => 'required|string|email|unique:pre_approved_emails,student_email,' . $request->id
+            ]);
+
+            $preApprovedEmail = PreApprovedEmails::findOrFail($validated['id']);
+            $preApprovedEmail->update(['student_email' => $validated['student_email']]);
+
+            return redirect()->back()->with('success', 'Email updated successfully!')->withFragment('preapproved-emails');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return redirect()->back()->with('error', 'Email already exists in the pre-approved list.')->withFragment('preapproved-emails');
+            }
+            return redirect()->back()->with('error', 'An error occurred while updating the email.')->withFragment('preapproved-emails');
+        }
+    }
+
+
+    public function deletePreApprovedEmail(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'id' => 'required|exists:pre_approved_emails,id',
+            ]);
+
+            PreApprovedEmails::destroy($validated['id']);
+
+            return redirect()->back()->with('success', 'Email removed successfully!')->withFragment('preapproved-emails');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->with('error', 'An error occurred while removing the email.')->withFragment('preapproved-emails');
+        }
     }
 }
