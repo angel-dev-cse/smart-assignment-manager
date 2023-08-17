@@ -158,7 +158,8 @@ select {
 
 .card.bg-primary .card-title,
 .card.bg-primary .card-header,
-.card.bg-primary .card-text {
+.card.bg-primary .card-text,
+.card.bg-primary .label {
     color: #fff; /* Set the desired text color (white in this case) */
 }
 
@@ -187,4 +188,11 @@ select {
     --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.grade-label {
+    color: white;
+}
+
+.grade-select {
 }

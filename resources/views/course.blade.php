@@ -18,18 +18,55 @@
                                     </h5>
                                 </a>
 
+                                
                                 <form id="profileForm{{$teacher->user->id}}" class="form" method="POST" action="{{ route('profile.show') }}">
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $teacher->user->id }}" />
                                 </form>
-
+                                
                                 <p class="card-text text-mute">Total Students</p>
                                 <h5 class="card-title">{{ $course->students->count() }}</h5>
+                                @if(Auth::user()->hasRole('student'))
+                                    @if($teacherGrade)
+                                        <!-- Update grade form -->
+                                        <label class="text-light text-sm" for="grade">Grade Teacher</label>
+                                        <form id="grade-teacher" class="form" method="POST" action="{{ route('grade.teacher.update') }}">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $teacherGrade->id }}">
+                                            <select id="grade" name="grade" class="px-4 py-0 mb-2 mr-1" required>
+                                                <option value="100" {{ $teacherGrade->grade == 100 ? 'selected' : '' }}>Excellent</option>  
+                                                <option value="90" {{ $teacherGrade->grade == 90 ? 'selected' : '' }}>Super</option>  
+                                                <option value="80" {{ $teacherGrade->grade == 80 ? 'selected' : '' }}>Very Good</option>  
+                                                <option value="70" {{ $teacherGrade->grade == 70 ? 'selected' : '' }}>Good</option>  
+                                                <option value="60" {{ $teacherGrade->grade == 60 ? 'selected' : '' }}>Okay</option>
+                                            </select>
+                                            <input type="submit" class="btn btn-sm btn-light active" value="Update">
+                                        </form>
+                                    @else
+                                        <!-- Grade teacher form -->
+                                        <label class="text-light text-sm" for="grade">Grade Teacher</label>
+                                        <form id="grade-teacher" class="form" method="POST" action="{{ route('grade.teacher.create') }}">
+                                            @csrf
+                                            <input type="hidden" name="teacher_id" value="{{ $teacher->id }}">
+                                            <input type="hidden" name="student_id" value="{{ auth()->user()->student->id }}">
+                                            <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                            <select id="grade" name="grade" class="px-4 py-0 mb-2 mr-1" required>
+                                                <option value="100">Excellent</option>  
+                                                <option value="90">Super</option>  
+                                                <option value="80">Very Good</option>  
+                                                <option value="70">Good</option>  
+                                                <option value="60">Okay</option>
+                                            </select>
+                                            <input type="submit" class="btn btn-sm btn-light active" value="Grade">
+                                        </form>
+                                    @endif
+                                @endif
                                 <p class="card-text text-mute">{{ $department -> description }}</p>
                                 <h3 class="card-text text-mute">{{ $department -> department_name }}</h3>
                                 <!-- Add more course details here -->
                             </div>
                         </div>
+
                         @if(Auth::user()->hasRole('teacher'))
                             <!-- Create Assignment Form -->
                             <div class="card card-shadow mt-4">

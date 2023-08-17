@@ -9,6 +9,7 @@ use App\Models\Enrollment;
 use App\Models\PreApprovedEmails;
 use App\Models\Student;
 use App\Models\Submission;
+use App\Models\TeacherGrade;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 
@@ -82,6 +83,11 @@ class CourseController extends Controller
 
         $preApprovedEmails = PreApprovedEmails::where('course_id', $id)->get();
 
+        $teacherGrade = TeacherGrade::where('course_id', $course->id)
+            ->where('student_id', $student->id)
+            ->where('teacher_id', $teacher->id)
+            ->first();
+
         // Fetch assignments and students data conditionally based on the user's role
         // if (Auth::user()->hasRole('teacher')) {
         //     $assignments = $course->assignments; // Assuming you have the relationship set up in the models
@@ -90,7 +96,7 @@ class CourseController extends Controller
         // }
 
         // Pass the data to the course.blade.php view
-        return view('course', compact('course', 'assignments', 'teacher', 'department', 'studentScores', 'preApprovedEmails'));
+        return view('course', compact('course', 'assignments', 'teacher', 'department', 'studentScores', 'preApprovedEmails', 'teacherGrade'));
     }
 
     /**
@@ -167,16 +173,16 @@ class CourseController extends Controller
             $student = Student::whereHas('user', function ($query) use ($validated) {
                 $query->where('email', $validated['student_email']);
             })->first();
-            
+
             // Allow previous enrollments requests that are still pending
             if ($student) {
                 $studentId = $student->id;
 
                 // dd($studentId);
                 $enrollment = Enrollment::where('student_id', $studentId)
-                ->where('course_id', $courseId)
-                ->where('status', 'pending');
-                
+                    ->where('course_id', $courseId)
+                    ->where('status', 'pending');
+
                 if ($enrollment) {
                     $enrollmentData = $enrollment->first();
                     $studentUserId = $enrollmentData->student->user->id;
@@ -184,7 +190,7 @@ class CourseController extends Controller
                     $courseName = $enrollmentData->course->course_name;
 
                     $enrollment->update(['status' => 'approved']);
-                    
+
                     $data = [
                         'user_id' => $studentUserId,
                         'title' => 'Enrollment application ' . $status . '!',
@@ -196,7 +202,7 @@ class CourseController extends Controller
                     $notificationController->store(new Request($data));
                 }
             }
-            
+
             PreApprovedEmails::create($validated);
 
             return redirect()->back()->with('success', 'Email added successfully!')->withFragment('preapproved-emails');

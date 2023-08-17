@@ -81,6 +81,8 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/apply/student', [EnrollmentController::class, 'index'])->name('student.application');
     Route::post('/apply/student', [EnrollmentController::class, 'store'])->name('student.application.store');
     Route::post('/apply/student/delete', [EnrollmentController::class, 'delete'])->name('student.application.delete');
+    Route::post('/grade/teacher/create', [TeacherGradeController::class, 'store'])->name('grade.teacher.create');
+    Route::post('/grade/teacher/update', [TeacherGradeController::class, 'update'])->name('grade.teacher.update');
 });
 
 Route::middleware(['auth'])->group(function () {
