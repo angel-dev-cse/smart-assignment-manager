@@ -39,18 +39,37 @@ class Teacher extends Model
     {
         return Student::whereIn('id', function ($query) {
             $query->select('student_id')
-                  ->from('enrollments')
-                  ->whereIn('course_id', function ($query) {
-                      $query->select('course_id')
-                            ->from('teaches')
-                            ->where('teacher_id', $this->id)
-                            ->where('status', 'approved');
-                  });
+                ->from('enrollments')
+                ->whereIn('course_id', function ($query) {
+                    $query->select('course_id')
+                        ->from('teaches')
+                        ->where('teacher_id', $this->id)
+                        ->where('status', 'approved');
+                });
         })->get();
     }
 
-    public function teaches() : HasMany {
+    public function teaches(): HasMany
+    {
         return $this->hasMany(Teach::class);
     }
 
+
+    public function getGrading()
+    {
+        $grades = TeacherGrade::where('teacher_id', $this->id)->count();
+        $grade = TeacherGrade::where('teacher_id', $this->id)->sum('grade')/$grades;
+        
+        if ($grade >= 91 && $grade <= 100) {
+            return 'A++';
+        } elseif ($grade >= 81 && $grade <= 90) {
+            return 'A+';
+        } elseif ($grade >= 71 && $grade <= 80) {
+            return 'A';
+        } elseif ($grade >= 51 && $grade <= 70) {
+            return 'B';
+        } else {
+            return 'B-';
+        }
+    }
 }

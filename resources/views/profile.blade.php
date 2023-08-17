@@ -36,6 +36,7 @@
                                         <h4 class="card-title">Teacher Information</h4>
                                         <p><b>Qualification:</b> {{ $user->teacher->qualification }}</p>
                                         <p><b>Department:</b> {{ $user->teacher->department->department_name }}</p>
+                                        <p><b>Teacher's Grade:</b> {{ $user->teacher->getGrading() }}</p>
                                     @endif
                                     @if (auth()->user() && $user->id === auth()->user()->id)
                                             <a href="{{ route('profile.edit') }}" class="btn btn-primary btn mt-20">Update Profile</a>

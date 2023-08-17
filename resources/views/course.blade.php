@@ -29,7 +29,7 @@
                                 @if(Auth::user()->hasRole('student'))
                                     @if($teacherGrade)
                                         <!-- Update grade form -->
-                                        <label class="text-light text-sm" for="grade">Grade Teacher</label>
+                                        <label class="text-light text-sm" for="grade">Teacher's Grading</label>
                                         <form id="grade-teacher" class="form" method="POST" action="{{ route('grade.teacher.update') }}">
                                             @csrf
                                             <input type="hidden" name="id" value="{{ $teacherGrade->id }}">
