@@ -114,7 +114,7 @@
                             </li>
                             @if(auth()->user()->hasRole('teacher'))
                                 <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#preapproved-emails"  id="preapproved-emails-nav">Preapproved Students</a>
+                                    <a class="nav-link" data-bs-toggle="tab" href="#preapproved-emails"  id="preapproved-emails-nav">Pre Approved Students</a>
                                 </li>
                             @endif
                         </ul>
