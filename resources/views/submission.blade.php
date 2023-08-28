@@ -93,7 +93,7 @@
                     </div>
                 </div>
 
-                <!-- Show the review form for the teacher -->
+                <!-- Show the new review form for the teacher -->
                 @if (Auth::user()->hasRole('teacher'))
                     @if($submission->status==='pending')
                     <div class="card">
@@ -133,6 +133,7 @@
                     </div>
 
                     @else
+                    <!-- Update review form for teacher -->
                         <div class="card card-shadow mt-4">
                             <div class="card-body">
                                 <h5 class="card-title">Update Review</b></h5>

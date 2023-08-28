@@ -57,6 +57,7 @@ class CourseController extends Controller
     {
         // Fetch the course details
         $course = Course::findOrFail($id);
+        $user = auth()->user();
 
         $department = $course->department;
         $teacher = $course->teacher();
@@ -83,10 +84,14 @@ class CourseController extends Controller
 
         $preApprovedEmails = PreApprovedEmails::where('course_id', $id)->get();
 
-        $teacherGrade = TeacherGrade::where('course_id', $course->id)
-            ->where('student_id', $student->id)
-            ->where('teacher_id', $teacher->id)
-            ->first();
+        if($user->hasRole('student')) {
+            $teacherGrade = TeacherGrade::where('course_id', $course->id)
+                ->where('student_id', $user->student->id)
+                ->where('teacher_id', $teacher->id)
+                ->first();
+        } else {
+            $teacherGrade = null;
+        }
 
         // Fetch assignments and students data conditionally based on the user's role
         // if (Auth::user()->hasRole('teacher')) {

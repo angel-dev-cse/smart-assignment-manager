@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 try {
                     const response = await fetch(`/get-chat-data/${chatId}`);
                     let data = await response.json();
-
+                    
                     senderId = data.sender.id;
                     senderName = data.sender.name;
                     lastMessage = data.lastMessage;
@@ -315,6 +315,4 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     });
-
-    // ... Your Echo setup and message handling ...
 });

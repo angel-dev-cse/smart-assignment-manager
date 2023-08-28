@@ -15,8 +15,6 @@
             </div>
           </div>
           <div id="message-container" class="card-body pb-0" data-mdb-perfect-scrollbar="true" style="position: relative; height:250px; overflow-y:scroll">
-
-          
           </div>
           <div class="card-footer text-muted d-flex p-3">
             <div class="input-group mb-0 mr-0">
