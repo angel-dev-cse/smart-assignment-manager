@@ -103,6 +103,7 @@
                             </div>
                         @endif
                     </div>
+
                     <!-- Right side : Tabs -->
                     <div class="col-md-9">
                         <ul class="nav nav-tabs">
@@ -205,6 +206,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <!-- Students Tab Content -->
                             <div class="tab-pane fade" id="students">
                                 <div class="card table-card card-shadow">
@@ -244,7 +246,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="preapproved-emails">
-                                <!-- Pre-approved Emails -->
+                                <!-- Pre-approved Emails > Handled with Bootstrap -->
                                 <div class="card table-card card-shadow" style="max-height:20rem">
                                     <div class="card-body">
                                         <h5 class="card-title">Allowed Student Emails</h5>

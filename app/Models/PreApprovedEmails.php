@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class PreApprovedEmails extends Model
 {
     use HasFactory;
-
+    
     protected $fillable = [
         'course_id',
         'student_email'

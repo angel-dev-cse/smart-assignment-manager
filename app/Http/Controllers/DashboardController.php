@@ -20,7 +20,7 @@ class DashboardController extends Controller
 
         if ($request->user()->hasRole('teacher')) {
             $teacherId = Auth::user()->teacher->id;
-            $courses = Teacher::findOrFail($teacherId)->courses;
+            $courses = Teacher::findOrFail($teacherId)->courses; 
 
             $assignments = Assignment::whereHas('course', function ($query) use ($teacherId) {
                 $query->whereHas('teaches', function ($query) use ($teacherId) {
